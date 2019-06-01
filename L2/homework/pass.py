@@ -26,16 +26,13 @@ def check_account():
     account_name = request.form.get('name0')
     account_pass = request.form.get('pass0')
     check_pass = False
-    if account_name in accounts:
-        if account_pass == accounts[account_name]:
+    result = False
+    for account0 in accounts:
+        if account_name == account0['name'] and account_pass == account0['pass']:
             result = True
-            return render_template('pass.html',check_pass = check_pass,result = result)
-        else:
-            result = False
-            return render_template('pass.html',check_pass = check_pass,result = result)
-    else:
-        result = False
-        return render_template('pass.html',check_pass = check_pass,result = result)
+            break
+
+    return render_template('pass.html',result_end = result)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1',port=8000, debug= True)
